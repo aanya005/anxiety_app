@@ -15,7 +15,7 @@ import matplotlib.pyplot as plt
 from openai import OpenAI
 
 # CONFIG
-OPENAI_API_KEY = "sk-efgh5678efgh5678efgh5678efgh5678efgh5678"
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 BASE_DIR = Path(__file__).parent.resolve()
 app = Flask(__name__, template_folder="templates", static_folder="static")
 sentiment = SentimentIntensityAnalyzer()
@@ -372,4 +372,4 @@ def api_gad():
 if __name__=="__main__":
     if not OPENAI_API_KEY:
         print("⚠️  Warning: OPENAI_API_KEY not set. AI analysis will use fallback responses.")
-    app.run(debug=True, port=5000)
+    app.run(host="0.0.0.0", port=int(os.getenv("PORT", 5000)))
